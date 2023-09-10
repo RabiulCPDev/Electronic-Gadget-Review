@@ -1,70 +1,31 @@
-import "./App.css" ;
-import Product from "./component/product"
-import Header from "./components/Header";
-import Sliders from "./components/Sliders";
-import Category from "./components/Category";
-import Footer from "./components/Footer";
-import "./index.css";
-import { useEffect,useState } from "react";
-
-const arr=[];
-export default function App() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    
-    fetch('http://localhost:5000/data')
-      .then(response => response.json())
-      .then(result => {
-       // console.log(result);
-        setData(result)
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
- const hello= data.map((it)=>{
-    console.log(it);
-    return  <div className="s"> <Product path={it.path} name={it.name} discount={it.discount} price={it.price}/></div>
-  })
-
-// product 2
-
-const [data2, setData2] = useState([]);
-
-useEffect(() => {
-  
-  fetch('http://localhost:5000/updata')
-    .then(response => response.json())
-    .then(result => {
-     // console.log(result);
-      setData2(result)
-    })
-    .catch(error => console.error('Error fetching data:', error));
-}, []);
-const hello2= data2.map((it)=>{
-  console.log(it);
-  return  <div className="s"> <Product path={it.path} name={it.name} discount={it.discount} price={it.price}/></div>
-})
+import React from 'react'
+import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
+import Contact from "./Page/Contact";
+import Home from './Page/Home';
+import SignUp from './Page/SignUp';
+import LogIn from './Page/LogIn';
+import Product from './Page/Products_Page';
+import Smartphone from './Page/SmartPhone';
+import Laptop from './Page/Laptop_page';
+import Headphones from './Page/HeadPhone';
 
 
-
-
-
+const App = () => {
   return (
-    <>
-    <Header/>
-    <Sliders />
-    <Category/>
-    <h1>Top Rated Product</h1>
-    <div className="App">
-       {hello}
-     </div>
-     <h1>Upcoming Product</h1>
-    <div className="App">
-       {hello2}
-     </div>
-     <>
-      <Footer/>
-     </>
-     </>
-  ); 
+    <Router>
+        <Routes>
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/Sign-up" element={<SignUp />} />
+            <Route path="/Login" element={<LogIn />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/product/smartphone" element={<Smartphone />} />
+            <Route path="/product/computer" element={<Laptop />} />
+            <Route path="/product/headphone" element={<Headphones />} />
+
+        </Routes>
+    </Router>
+  )
 }
+
+export default App
